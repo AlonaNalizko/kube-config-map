@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  namespace: sirius
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: goapp
+          image: kubeconfigmap:latest
+          imagePullPolicy: Never
+
+        - name: nginx
+          image: nginx:latest
+          imagePullPolicy: Never
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/nginx/templates
+
+      volumes:
+        - name: config-volume
+          configMap:
+            name: my-app-conf

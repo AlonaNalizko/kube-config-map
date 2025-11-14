@@ -1,0 +1,12 @@
+server {
+    listen 80;
+
+    # Global settings for this server block
+    client_max_body_size 10M; # Max size for file uploads
+    
+    # Root location block for all requests
+    location / {
+        proxy_pass http://app_server; 
+    }
+
+}
